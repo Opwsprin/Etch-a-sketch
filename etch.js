@@ -1,9 +1,18 @@
 let size = 16;
+let drawColor = 'black';
+//let drawColors = ['red', 'yellow', 'blue', 'green', 'black'];
 maxContainerSize=640;
 const gridContainer = document.getElementById("grid-container");
 const createGridButton = document.querySelector('#create-grid-button');
 const slider = document.querySelector(".slider");
 const sliderValue = document.querySelector(".slider-value");
+const colorButtons = document.querySelectorAll(".color-select-button");
+
+colorButtons.forEach((button)=>{
+    button.addEventListener('click', function(e){
+        drawColor = button.id;
+    });
+});
 
 sliderValue.textContent=(`${slider.value} x ${slider.value}`);
 
@@ -28,7 +37,7 @@ createGridButton.addEventListener('click', ()=>{
 
 function createGrid(size){
     clearCurrentGrid();
-    let squareSize = Math.floor(maxContainerSize/size -2);
+    let squareSize = maxContainerSize/size -2;
     for (let i=0;i<size;i++){
         const column = document.createElement('div');
         column.classList.add('grid-column');
@@ -40,7 +49,7 @@ function createGrid(size){
             //square.textContent=(`${i}, ${j}`)
             square.addEventListener('mouseover', function(e){
                 if(mouseDown){
-                    e.target.style.cssText = `background-color: red;width:${squareSize}px; height:${squareSize}px;`;
+                    e.target.style.cssText = `background-color: ${drawColor};width:${squareSize}px; height:${squareSize}px;`;
                 }
             });
             column.appendChild(square);

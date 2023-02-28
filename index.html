@@ -10,14 +10,25 @@
 </head>
 <body>
     <div class="container">
-        <div class="header"></div>
+        <div class="header">
+            <h1>Etch-A-Sketch!</h1>
+        </div>
         <div class="content">
             <div class="options">
-                <button id="create-grid-button">Create Grid</button>
+                <div class="color-selector">
+                    <div id="selector-title">Choose Color:</div>
+                    <button class="color-select-button" id="red"></button>
+                    <button class="color-select-button" id="yellow"></button>
+                    <button class="color-select-button" id="blue"></button>
+                    <button class="color-select-button" id="green"></button>
+                    <button class="color-select-button" id="black"></button>
+                </div>
+                
                 <div class="slider-container">
                     <input type="range" min="4" max="100" value="16" class="slider" id="grid-size-slider">
                     <div class="slider-value"></div>
                 </div>
+                <button id="create-grid-button">Create Grid</button>
             </div>
             <div class="grid-container" id="grid-container"></div>
         </div>
