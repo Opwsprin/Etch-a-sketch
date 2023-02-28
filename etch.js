@@ -2,9 +2,15 @@ let size = 16;
 maxContainerSize=640;
 const gridContainer = document.getElementById("grid-container");
 const createGridButton = document.querySelector('#create-grid-button');
+const slider = document.querySelector(".slider");
+const sliderValue = document.querySelector(".slider-value");
+
+sliderValue.textContent=(`${slider.value} x ${slider.value}`);
 
 createGridButton.addEventListener('click', ()=>{
-    size = getGridSize();
+    //size = getGridSize();
+    size = slider.value;
+    console.log(slider.value);
     createGrid(size);
 });
 /*createGridButton.addEventListener('click', function(e) {
@@ -33,7 +39,9 @@ function createGrid(size){
             square.style.cssText = `width:${squareSize}px; height:${squareSize}px;`
             //square.textContent=(`${i}, ${j}`)
             square.addEventListener('mouseover', function(e){
-                e.target.style.cssText = `background-color: red;width:${squareSize}px; height:${squareSize}px;`;
+                if(mouseDown){
+                    e.target.style.cssText = `background-color: red;width:${squareSize}px; height:${squareSize}px;`;
+                }
             });
             column.appendChild(square);
         }
@@ -53,4 +61,29 @@ function getGridSize(){
     }
     return input;
 }
-//createGrid(size);
+createGrid(size);
+
+//let's try to see if we can only draw when the mouse button is pressed
+let mouseDown=0;
+/* this only works if mouseUp happens in the browser, otherwise mouse button state is lost
+document.body.onmousedown = function(){
+    ++mouseDown;
+}
+document.body.onmouseup = function(){
+    console.log("mouse up")
+    --mouseDown;
+}*/
+function setPrimaryButtonState(e){
+    let flags = e.buttons !== undefined ? e.buttons : e.which;
+    mouseDown = (flags & 1) === 1;
+}
+
+document.addEventListener('mousedown', setPrimaryButtonState);
+document.addEventListener('mousemove', setPrimaryButtonState);
+document.addEventListener('mouseup', setPrimaryButtonState);
+
+//a slider, for fun
+slider.oninput = function(){
+    sliderValue.textContent = (`${slider.value} x ${slider.value}`);
+};
+
